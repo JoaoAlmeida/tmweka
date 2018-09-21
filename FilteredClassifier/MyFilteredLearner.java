@@ -66,24 +66,28 @@ public class MyFilteredLearner {
 	 * This method evaluates the classifier. As recommended by WEKA documentation,
 	 * the classifier is defined but not trained yet. Evaluation of previously
 	 * trained classifiers can lead to unexpected results.
+	 * @throws Exception 
 	 */
-	public void evaluate() {
-		try {
+	public void evaluate() throws Exception {
+//		try {
 			trainData.setClassIndex(0);
 			filter = new StringToWordVector();
 			filter.setAttributeIndices("last");
 			classifier = new FilteredClassifier();
 			classifier.setFilter(filter);
 			classifier.setClassifier(new NaiveBayes());
-			Evaluation eval = new Evaluation(trainData);
-			eval.crossValidateModel(classifier, trainData, 4, new Random(1));
-			System.out.println(eval.toSummaryString());
-			System.out.println(eval.toClassDetailsString());
+			filter.setInputFormat(trainData);
+			Instances otp = Filter.useFilter(trainData, filter);
+			System.out.println(otp.toString());
+//			Evaluation eval = new Evaluation(trainData);
+//			eval.crossValidateModel(classifier, trainData, 4, new Random(1));
+//			System.out.println(eval.toSummaryString());
+//			System.out.println(eval.toClassDetailsString());
 			System.out.println("===== Evaluating on filtered (training) dataset done =====");
-		}
-		catch (Exception e) {
-			System.out.println("Problem found when evaluating");
-		}
+//		}
+//		catch (Exception e) {
+//			System.out.println("Problem found when evaluating");
+//		}
 	}
 	
 	/**
@@ -127,20 +131,22 @@ public class MyFilteredLearner {
 	/**
 	 * Main method. It is an example of the usage of this class.
 	 * @param args Command-line arguments: fileData and fileModel.
+	 * @throws Exception 
 	 */
-	public static void main (String[] args) {
+	public static void main (String[] args) throws Exception {
 	
 		MyFilteredLearner learner;
-		if (args.length < 2)
-			System.out.println("Usage: java MyLearner <fileData> <fileModel>");
-		else {
+//		if (args.length < 1)
+//			System.out.println("Usage: java MyLearner <fileData> <fileModel>");
+//		else {
 			learner = new MyFilteredLearner();
-			learner.loadDataset(args[0]);
+			learner.loadDataset("carol_teste.arff");
+//			learner.loadDataset("smsspam.small.arff");
 			// Evaluation mus be done before training
 			// More info in: http://weka.wikispaces.com/Use+WEKA+in+your+Java+code
 			learner.evaluate();
 			learner.learn();
-			learner.saveModel(args[1]);
-		}
+			learner.saveModel("output.txt");
+//		}
 	}
 }	

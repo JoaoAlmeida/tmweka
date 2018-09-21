@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="FilteredClassifier"/>
+	<classpathentry kind="src" path="LangID"/>
+	<classpathentry kind="src" path="MadridJUG"/>
+	<classpathentry kind="src" path="OpinionMining"/>
+	<classpathentry kind="src" path="WEKAExamples"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/aplicativos/Weka-3-8/weka.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
